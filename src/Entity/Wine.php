@@ -17,17 +17,23 @@ class Wine
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $type = null;
-
-    #[ORM\Column]
-    private ?int $productionYear = null;
-
     #[ORM\Column]
     private ?int $shelf = null;
 
     #[ORM\Column]
     private ?int $quantity = null;
+
+    #[ORM\ManyToOne(inversedBy: 'wines')]
+    #[ORM\JoinColumn(nullable: false, onDelete: 'CASCADE')]
+    private ?Region $region = null;
+
+    #[ORM\ManyToOne(inversedBy: 'wines')]
+    #[ORM\JoinColumn(nullable: false, onDelete: 'CASCADE')]
+    private ?Type $type = null;
+
+    #[ORM\ManyToOne(inversedBy: 'wines')]
+    #[ORM\JoinColumn(nullable: false, onDelete: 'CASCADE')]
+    private ?ProductionYear $productionYear = null;
 
     public function getId(): ?int
     {
@@ -42,30 +48,6 @@ class Wine
     public function setName(string $name): static
     {
         $this->name = $name;
-
-        return $this;
-    }
-
-    public function getType(): ?string
-    {
-        return $this->type;
-    }
-
-    public function setType(string $type): static
-    {
-        $this->type = $type;
-
-        return $this;
-    }
-
-    public function getProductionYear(): int
-    {
-        return $this->productionYear;
-    }
-
-    public function setProductionYear(int $productionYear): static
-    {
-        $this->productionYear = $productionYear;
 
         return $this;
     }
@@ -90,6 +72,42 @@ class Wine
     public function setQuantity(int $quantity): static
     {
         $this->quantity = $quantity;
+
+        return $this;
+    }
+
+    public function getRegion(): ?Region
+    {
+        return $this->region;
+    }
+
+    public function setRegion(?Region $region): static
+    {
+        $this->region = $region;
+
+        return $this;
+    }
+
+    public function getType(): ?Type
+    {
+        return $this->type;
+    }
+
+    public function setType(?Type $type): static
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    public function getProductionYear(): ?ProductionYear
+    {
+        return $this->productionYear;
+    }
+
+    public function setProductionYear(?ProductionYear $productionYear): static
+    {
+        $this->productionYear = $productionYear;
 
         return $this;
     }
