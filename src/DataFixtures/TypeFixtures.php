@@ -8,16 +8,21 @@ use Doctrine\Persistence\ObjectManager;;
 
 class TypeFixtures extends Fixture
 {
+    public const TYPE_WHITE = 'TYPE_WHITE';
     public function load(ObjectManager $manager): void
     {
-        $red = new Type('Rouge');
+        $red = new Type();
+        $red->setName('Rouge');
         $manager->persist($red);
 
-        $red = new Type('Rosé');
-        $manager->persist($red);
+        $pink = new Type();
+        $pink->setName('Rosé');
+        $manager->persist($pink);
 
-        $red = new Type('Blanc');
-        $manager->persist($red);
+        $white = new Type();
+        $white->setName('Blanc');
+        $manager->persist($white);
+        $this->addReference(self::TYPE_WHITE, $white);
 
         $manager->flush();
     }
